@@ -33,7 +33,7 @@ window.frappe.ui.form.on("Sales Invoice", {
   },
 
   before_submit: (frm) => {
-    return
+    createQRBill(frm);
   },
   refresh: (frm) => {
     frm.add_custom_button("Create QR Bill", function () {
