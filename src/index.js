@@ -28,15 +28,12 @@ window.frappe.ui.form.on("Sales Invoice", {
       return;
     }
     frm.doc.esr_reference_code = "";
+    const reference = getReferenceCode(frm.doc.name);
+    frm.doc.esr_reference_code = reference;
   },
 
   before_submit: (frm) => {
-
-    if(frm.doc.docstatus == 1) {
-      return;
-    }
-    const reference = getReferenceCode(frm.doc.name);
-    frm.doc.esr_reference_code = reference;
+    return
   },
   refresh: (frm) => {
     frm.add_custom_button("Create QR Bill", function () {
