@@ -12,7 +12,6 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 ***************************************************************************** */
 import { createQRBill } from "./createqrbill";
 import { getReferenceCode } from "./utils";
-
 window.frappe.ui.form.on("Sales Invoice", {
   on_submit: (frm) => {
 
@@ -28,12 +27,15 @@ window.frappe.ui.form.on("Sales Invoice", {
       return;
     }
     frm.doc.esr_reference_code = "";
+  },
+  
+  before_submit: (frm) => {
+
+    if(frm.doc.docstatus == 1) {
+      return;
+    }
     const reference = getReferenceCode(frm.doc.name);
     frm.doc.esr_reference_code = reference;
-  },
-
-  before_submit: (frm) => {
-    createQRBill(frm);
   },
   refresh: (frm) => {
     frm.add_custom_button("Create QR Bill", function () {
